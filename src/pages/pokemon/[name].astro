@@ -1,0 +1,13 @@
+---
+import { IPokemon } from "../../interfaces/pokemon";
+import Layout from "../../layouts/layout.astro";
+
+const { name } = Astro.params
+
+const data: IPokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`, { cache: "force-cache" })
+  .then(response => response.json())
+---
+
+<Layout title={data.name}>
+  <img src={data.sprites.front_default} />
+</Layout>
