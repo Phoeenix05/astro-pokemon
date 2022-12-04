@@ -6,8 +6,11 @@ const { name } = Astro.params
 
 const data: IPokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`, { cache: "force-cache" })
   .then(response => response.json())
+  .catch(() => undefined)
+
+if (!data) return Astro.redirect("/404", 301)
 ---
 
-<Layout title={data.name}>
-  <img src={data.sprites.front_default} />
+<Layout title={data?.name}>
+  <img src={data?.sprites.front_default} />
 </Layout>
