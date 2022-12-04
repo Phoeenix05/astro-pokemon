@@ -11,6 +11,26 @@ const data: IPokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`, 
 if (!data) return Astro.redirect("/404", 301)
 ---
 
-<Layout title={data?.name}>
-  <img src={data?.sprites.front_default} />
+<Layout title={data.name}>
+  <h1 class="font-bold text-2xl">{data.name}</h1>
+  <img src={data.sprites.front_default} />
+  
+  <h2 class="font-semibold text-xl mt-4">Types</h2>
+  {data.types.map((e) => <p>{e.type.name}</p>)}
+
+  <h2 class="font-semibold text-xl mt-4">Moves</h2>
+  <div class="flex flex-row flex-wrap">
+    {data.moves.map((e) => <p class="min-w-fit mr-8">{e.move.name}</p>)}
+  </div>
+  
+  <h2 class="font-semibold text-xl mt-4">Abilities</h2>
+  {data.abilities.map((e) => <p>{e.ability.name}</p>)}
+  
+  <h2 class="font-semibold text-xl mt-4">Sprites</h2>
+  <div class="flex flex-row flex-wrap">
+    <img src={data.sprites.front_default}>
+    <img src={data.sprites.front_shiny}>
+    <img src={data.sprites.front_female}>
+    <img src={data.sprites.front_shiny_female}>
+  </div>
 </Layout>
