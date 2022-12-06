@@ -1,6 +1,6 @@
 ---
-import { IPokemon } from "../../interfaces/pokemon";
-import Layout from "../../layouts/layout.astro";
+import { IPokemon } from "../interfaces/pokemon";
+import Layout from "../layouts/layout.astro";
 
 const { name } = Astro.params
 
@@ -8,7 +8,7 @@ const data: IPokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`, 
   .then(response => response.json())
   .catch(() => undefined)
 
-if (!data) return Astro.redirect("/404", 301)
+if (!data) return Astro.redirect("/404", 302)
 ---
 
 <Layout title={data.name}>
